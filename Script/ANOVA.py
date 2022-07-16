@@ -9,6 +9,8 @@ import tkinter.font as tkFont
 from tkinter import *
 from tkinter.ttk import *
 from tkinter import filedialog as fd
+from tkinter import messagebox
+from tkinter.messagebox import showinfo
 
 
 #setting the window
@@ -81,33 +83,36 @@ class Oneway:
 
         #function for all the one way anova analysis   
         def analyse():
-            dependent_var = (self.entry_1.get())
-            independent_var = (self.entry_2.get())
-            for file in excelfile:
-                data = pd.read_excel(file)
-                model = ols('%s ~ %s ' %(dependent_var, independent_var), data = data).fit()
-                aov = sm.stats.anova_lm(model, type=2)
-                
-                def boxplot():
-                    data.boxplot('%s' %(dependent_var), by='%s' %(independent_var) )
-                    plt.show()
+            if len(excelfile) == 0:
+                messagebox.showinfo("showinfo", "Please, select a file")
+            else:
+                dependent_var = (self.entry_1.get())
+                independent_var = (self.entry_2.get())
+                for file in excelfile:
+                    data = pd.read_excel(file)
+                    model = ols('%s ~ %s ' %(dependent_var, independent_var), data = data).fit()
+                    aov = sm.stats.anova_lm(model, type=2)
                     
-                #setting up newwindow to embed the result on
-                newwindow = Toplevel()      #TOPLEVEL() USED
-                newwindow.title("RESULT WINDOW - ONE WAY ANOVA")
-                newwindow.geometry("700x500")
+                    def boxplot():
+                        data.boxplot('%s' %(dependent_var), by='%s' %(independent_var) )
+                        plt.show()
+                    
+                    #setting up newwindow to embed the result on
+                    newwindow = Toplevel()      #TOPLEVEL() USED
+                    newwindow.title("RESULT WINDOW - ONE WAY ANOVA")
+                    newwindow.geometry("700x500")
 
-                #setting space to view result on inside of the new window
-                aovspace = tk.StringVar()
-                aovspace.set(aov)
-                self.label4= Label(newwindow, text="", textvariable=aovspace, font = fontStyle)
-                self.label4.place(relx = 0.5, rely = 0.10, anchor = CENTER)
-                
-                #creating a checkbox to allow view boxplot
-                self.btn5 = tk.Checkbutton(self.master, text="show boxplot", command=boxplot, font=fontStyle)
-                self.btn5.place(relx = 0.5, rely = 0.33  , anchor = CENTER)
-                
-                newwindow.mainloop()
+                    #setting space to view result on inside of the new window
+                    aovspace = tk.StringVar()
+                    aovspace.set(aov)
+                    self.label4= Label(newwindow, text="", textvariable=aovspace, font = fontStyle)
+                    self.label4.place(relx = 0.5, rely = 0.10, anchor = CENTER)
+                    
+                    #creating a checkbox to allow view boxplot
+                    self.btn5 = tk.Checkbutton(self.master, text="show boxplot", command=boxplot, font=fontStyle)
+                    self.btn5.place(relx = 0.5, rely = 0.33  , anchor = CENTER)
+                    
+                    newwindow.mainloop()
                 
         #settinf up space to view the name of selected file
         selectedfilespace = tk.StringVar()
@@ -190,38 +195,41 @@ class Twoway:
 
         #function for all the two way anova analysis
         def analyse():
-            dependent_var = (self.entry_1.get())
-            independent_var1 = (self.entry_2.get())
-            independent_var2 = (self.entry_3.get())
-            for file in excelfile:
-                data = pd.read_excel(file)
-                model = ols('%s ~ %s+%s ' %(dependent_var, independent_var1, independent_var2), data = data).fit()
-                aov = sm.stats.anova_lm(model, type=2)
+            if len(excelfile) == 0:
+                messagebox.showinfo("showinfo", "Please, select a file")
+            else:
+                dependent_var = (self.entry_1.get())
+                independent_var1 = (self.entry_2.get())
+                independent_var2 = (self.entry_3.get())
+                for file in excelfile:
+                    data = pd.read_excel(file)
+                    model = ols('%s ~ %s+%s ' %(dependent_var, independent_var1, independent_var2), data = data).fit()
+                    aov = sm.stats.anova_lm(model, type=2)
 
-                def boxplot():
-                    data.boxplot('%s' %(dependent_var), by='%s' %(independent_var1) )
-                    data.boxplot('%s' %(dependent_var), by='%s' %(independent_var2) )
-                    plt.show()
+                    def boxplot():
+                        data.boxplot('%s' %(dependent_var), by='%s' %(independent_var1) )
+                        data.boxplot('%s' %(dependent_var), by='%s' %(independent_var2) )
+                        plt.show()
 
-                
                     
-                #setting up newwindow to embed the result on
-                newwindow = Toplevel()      #TOPLEVEL() USED
-                newwindow.title("RESULT WINDOW - ONE WAY ANOVA")
-                newwindow.geometry("700x500")
+                        
+                    #setting up newwindow to embed the result on
+                    newwindow = Toplevel()      #TOPLEVEL() USED
+                    newwindow.title("RESULT WINDOW - ONE WAY ANOVA")
+                    newwindow.geometry("700x500")
 
-                
-                #setting space to view result on inside of the new window
-                aovspace = tk.StringVar()
-                aovspace.set(aov)
-                self.label5= Label(newwindow, text="", textvariable=aovspace, font = fontStyle)
-                self.label5.place(relx = 0.5, rely = 0.10, anchor = CENTER)
+                    
+                    #setting space to view result on inside of the new window
+                    aovspace = tk.StringVar()
+                    aovspace.set(aov)
+                    self.label5= Label(newwindow, text="", textvariable=aovspace, font = fontStyle)
+                    self.label5.place(relx = 0.5, rely = 0.10, anchor = CENTER)
 
-                #creating a checkbox to allow view boxplot
-                self.btn5 = tk.Checkbutton(self.master, text="show boxplot", command=boxplot, font=fontStyle)
-                self.btn5.place(relx = 0.5, rely = 0.36  , anchor = CENTER)
-                
-                newwindow.mainloop()
+                    #creating a checkbox to allow view boxplot
+                    self.btn5 = tk.Checkbutton(self.master, text="show boxplot", command=boxplot, font=fontStyle)
+                    self.btn5.place(relx = 0.5, rely = 0.36  , anchor = CENTER)
+                    
+                    newwindow.mainloop()
 
         #settinf up space to view the name of selected file
         selectedfilespace = tk.StringVar()
