@@ -9,6 +9,8 @@ import tkinter.font as tkFont
 from tkinter import *
 from tkinter.ttk import *
 from tkinter import filedialog as fd
+from tkinter import messagebox
+from tkinter.messagebox import showinfo
 
 
 #setting the window
