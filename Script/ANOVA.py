@@ -83,8 +83,10 @@ class Oneway:
 
         #function for all the one way anova analysis   
         def analyse():
+            #Check if a file selected whenever the user clicks "Analyse" button and showinformation if there is no file selected
             if len(excelfile) == 0:
                 messagebox.showinfo("showinfo", "Please, select a file")
+            #Continue with the analysis if a file is selected
             else:
                 dependent_var = (self.entry_1.get())
                 independent_var = (self.entry_2.get())
@@ -195,8 +197,10 @@ class Twoway:
 
         #function for all the two way anova analysis
         def analyse():
+            #Check if a file selected whenever the user clicks "Analyse" button and showinformation if there is no file selected
             if len(excelfile) == 0:
                 messagebox.showinfo("showinfo", "Please, select a file")
+            #Continue with the analysis if a file is selected
             else:
                 dependent_var = (self.entry_1.get())
                 independent_var1 = (self.entry_2.get())
