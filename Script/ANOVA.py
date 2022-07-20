@@ -148,7 +148,6 @@ class Oneway:
         self.label1.destroy()
         self.label2.destroy()
         self.label3.destroy()
-        self.label4.destroy()
         self.label5.destroy()
         self.btn4.destroy()
         self.btn5.destroy()
@@ -269,7 +268,6 @@ class Twoway:
         self.label2.destroy()
         self.label3.destroy()
         self.label4.destroy()
-        self.label5.destroy()
         self.btn4.destroy()
         self.btn5.destroy()
         self.btn6.destroy()
@@ -284,4 +282,3 @@ class Twoway:
 #set default window as mainwindow and run
 mainwindow(root)
 root.mainloop()
-
