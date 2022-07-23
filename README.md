@@ -1,9 +1,14 @@
 # Analysis-of-Variance
 A python program/software that solves one-way and two-way ANOVA
 
-# Prerequisite
+## Prerequisite
 `Python` version `3.10+`
 
-# Component
+## Component
 * Tkinter GUI
-# Demo
+
+## Running as script
+* `git clone https://github.com/muhammad-md/Analysis-of-Variance`
+
+
+## Running as executable file(.exe)
