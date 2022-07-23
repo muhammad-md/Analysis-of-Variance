@@ -7,8 +7,9 @@ A python program/software that solves one-way and two-way ANOVA
 ## Component
 * Tkinter GUI
 
-## Running as script
+## Running
 * `git clone https://github.com/muhammad-md/Analysis-of-Variance`
 
+* https://user-images.githubusercontent.com/78704553/180620760-f0a702ee-6c12-4060-bb18-182b901ef5b8.mp4
 
-## Running as executable file(.exe)
+* Alternatively, you can convert this program to an executable file(.exe) and run it as an application
