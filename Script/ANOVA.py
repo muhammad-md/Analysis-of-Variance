@@ -79,7 +79,6 @@ class Oneway:
         self.entry_1.place(relx = 0.5, rely = 0.20, anchor = CENTER)
         self.entry_2.place(relx = 0.5, rely = 0.25, anchor = CENTER)
 
-        
 
         #function for all the one way anova analysis   
         def analyse():
@@ -95,9 +94,6 @@ class Oneway:
                     model = ols('%s ~ %s ' %(dependent_var, independent_var), data = data).fit()
                     aov = sm.stats.anova_lm(model, type=2)
                     
-                    def boxplot():
-                        data.boxplot('%s' %(dependent_var), by='%s' %(independent_var) )
-                        plt.show()
                     
                     #setting up newwindow to embed the result on
                     newwindow = Toplevel()      #TOPLEVEL() USED
@@ -109,12 +105,16 @@ class Oneway:
                     aovspace.set(aov)
                     self.label4= Label(newwindow, text="", textvariable=aovspace, font = fontStyle)
                     self.label4.place(relx = 0.5, rely = 0.10, anchor = CENTER)
-                    
-                    #creating a checkbox to allow view boxplot
-                    self.btn5 = tk.Checkbutton(self.master, text="show boxplot", command=boxplot, font=fontStyle)
-                    self.btn5.place(relx = 0.5, rely = 0.33  , anchor = CENTER)
-                    
+
+                    #Run new window
                     newwindow.mainloop()
+        def boxplot():
+            dependent_var = (self.entry_1.get())
+            independent_var = (self.entry_2.get())
+            for file in excelfile:
+                data = pd.read_excel(file)
+                data.boxplot('%s' %(dependent_var), by='%s' %(independent_var) )
+                plt.show()
                 
         #settinf up space to view the name of selected file
         selectedfilespace = tk.StringVar()
@@ -132,8 +132,14 @@ class Oneway:
             mainfilename = tail
 
             selectedfilespace.set(mainfilename)
+
+
+        #Buttons
         self.label5= Label(self.master, text="File Selected: ", textvariable=selectedfilespace, font = fontStyle)
         self.label5.place(relx = 0.5, rely = 0.15, anchor = CENTER)
+        #creating a checkbox to allow view boxplot
+        self.btn5 = tk.Checkbutton(self.master, text="show boxplot", command=boxplot, font=fontStyle)
+        self.btn5.place(relx = 0.5, rely = 0.33  , anchor = CENTER)
         self.btn6 = tk.Button(self.master,text='Open a File',font= fontStyle1, command=select_file)
         self.btn6.place(relx = 0.5, rely = 0.07, anchor = CENTER)
         self.btn7 = tk.Button(self.master,text='Analyse',font= fontStyle1, command=analyse)
@@ -209,11 +215,6 @@ class Twoway:
                     model = ols('%s ~ %s+%s ' %(dependent_var, independent_var1, independent_var2), data = data).fit()
                     aov = sm.stats.anova_lm(model, type=2)
 
-                    def boxplot():
-                        data.boxplot('%s' %(dependent_var), by='%s' %(independent_var1) )
-                        data.boxplot('%s' %(dependent_var), by='%s' %(independent_var2) )
-                        plt.show()
-
                     
                         
                     #setting up newwindow to embed the result on
@@ -227,12 +228,18 @@ class Twoway:
                     aovspace.set(aov)
                     self.label5= Label(newwindow, text="", textvariable=aovspace, font = fontStyle)
                     self.label5.place(relx = 0.5, rely = 0.10, anchor = CENTER)
-
-                    #creating a checkbox to allow view boxplot
-                    self.btn5 = tk.Checkbutton(self.master, text="show boxplot", command=boxplot, font=fontStyle)
-                    self.btn5.place(relx = 0.5, rely = 0.36  , anchor = CENTER)
-                    
+                    #Run new window
                     newwindow.mainloop()
+
+        def boxplot():
+            dependent_var = (self.entry_1.get())
+            independent_var1 = (self.entry_2.get())
+            independent_var2 = (self.entry_3.get())
+            for file in excelfile:
+                data = pd.read_excel(file)
+                data.boxplot('%s' %(dependent_var), by='%s' %(independent_var1) )
+                data.boxplot('%s' %(dependent_var), by='%s' %(independent_var2) )
+                plt.show()
 
         #settinf up space to view the name of selected file
         selectedfilespace = tk.StringVar()
@@ -250,8 +257,13 @@ class Twoway:
             mainfilename = tail
             
             selectedfilespace.set(mainfilename)
+
+        #Buttons
         self.label6= Label(self.master, text="File Selected: ", textvariable=selectedfilespace, font = fontStyle)
         self.label6.place(relx = 0.5, rely = 0.15, anchor = CENTER)
+        #creating a checkbox to allow view boxplot
+        self.btn5 = tk.Checkbutton(self.master, text="show boxplot", command=boxplot, font=fontStyle)
+        self.btn5.place(relx = 0.5, rely = 0.36  , anchor = CENTER)
         self.btn6 = tk.Button(self.master,text='Open a File',font= fontStyle1, command=select_file)
         self.btn6.place(relx = 0.5, rely = 0.07, anchor = CENTER)
         self.btn7 = tk.Button(self.master,text='Analyse',font= fontStyle1, command=analyse)
